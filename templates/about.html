@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% include "header.html" %}
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>About Us</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>About</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+        
+
+
+
+        <!-- wpo-about-area start -->
+        <div class="wpo-about-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 colsm-12">
+                        <div class="wpo-about-text">
+                            <div class="wpo-section-title">
+                                <span>What We Do?</span>
+                                
+                            </div>
+                            <h4>Mission Statement:</h4>
+                            <p>Empowering individuals and families to reach their full potential, while promoting sustainable development and social responsibility, through access to essential resources, support, and opportunities, fostering a thriving community that values education, economic growth, and well-being.</p>
+
+                            <h4>Vision Statement:</h4>
+                            <p>A world where every individual has the opportunity to succeed, regardless of their background or circumstances, and where communities are strong, supportive, and prosperous, achieving the United Nations Sustainable Development Goals (SDGs) for a better future.</p>
+
+                            <h4>About Us:</h4>
+                            <p>Salsabil Charity Foundation is a community-focused organization dedicated to unlocking the potential of every individual, while contributing to the achievement of the SDGs. Our mission is to provide safe environments for families to grow and prosper through:</p>
+                            <ul>
+                                <li><b>Clean Water Initiatives (SDG 6):</b> Ensuring access to clean water for drinking, sanitation, and hygiene.</li>
+                                <li><b>Education and Mentorship (SDG 4):</b> Providing educational resources, mentorship programs, and skills training to empower individuals.</li>
+                                <li><b>Economic Empowerment (SDG 8):</b> Offering seed money and support for startup businesses, promoting economic growth and self-sufficiency.</li>
+                            </ul>
+                            <br>
+                            <h4>Target Demographic:</h4>
+                            <ul>
+                                <li><b>Geographic Location:</b> Nigeria</li>
+                                <li><b>Age:</b> Families with children, young adults, and individuals of all ages</li>
+                                <li><b>Income Level:</b> Low-income families, individuals, and small business owners</li>
+                                <li><b>Interests:</b> Education, economic empowerment, healthcare, community development, and social welfare</li>
+                                <li><b>Values:</b> Community, family, education, hard work, self-sufficiency, and environmental sustainability</li>
+                            </ul>
+                            <br>
+                            <h4>Core Values</h4>
+                            <ul>
+                                <li><b>Compassion:</b> Caring for the well-being of individuals and families</li>
+                                <li><b>Empowerment:</b> Unlocking potential and promoting self-sufficiency</li>
+                                <li><b>Community:</b> Building strong, supportive communities</li>
+                                <li><b>Integrity:</b> Transparency, accountability, and ethical practices</li>
+                                <li><b>Sustainability:</b> Embracing environmentally friendly practices and contributing to the achievement of the sustainability goals</li>
+                            </ul>
+	
+                        
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 colsm-12">
+                        <div class="wpo-about-img">
+                            <img src="{% static 'images/image2.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-about-area end -->
+        
+       
+        <!-- wpo-team-area start -->
+        <div class="wpo-team-area-2 section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-section-title">
+                            <span>Meet Our Team</span>
+                            <h2>Our Board of Members</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for member in members %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 custom-grid">
+                        <div class="wpo-team-wrap">
+                            <div class="wpo-team-img">
+                                <img src="{{member.image.url}}" alt="">
+                            </div>
+                            <hr><hr>
+                            <div class="wpo-team-content">
+                                <div class="wpo-team-text-sub">
+                                    <h2>{{member.name|title}}</h2>
+                                    <span>{{member.title|capfirst}}</span>
+                                    <ul>
+                                        <li><i class="ti-email"></i>  {{member.email}}</li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- wpo-team-area end -->
+        
+                </div> <!-- end container -->
+            </section>
+            <!-- end wpo-news-letter-section -->
+{% endblock content %} 

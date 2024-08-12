@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>{{cause.title|title}}</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>Cause</span></li>
+                                <li><span>{{cause.title|title}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+        <!-- wpo-event-details-area start -->
+        <div class="wpo-case-details-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                        <div class="wpo-case-details-wrap">
+                            <div class="wpo-case-details-img">
+                                <img src="{{cause.image.url}}" alt="">
+                            </div>
+                            <div class="wpo-case-details-tab">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#Description">Description</a></li>
+                                    {% if not cause.raised == cause.goal  %}
+                                    <li><a data-toggle="tab" href="#Donations">Donation</a></li>
+                                    {% endif %}
+                                    <li><a data-toggle="tab" href="#Comments">Comments</a></li>
+                                </ul>
+                            </div>
+                            <div class="wpo-case-details-text">
+                                <div class="tab-content">
+                                    <div id="Description" class="tab-pane active">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="wpo-case-content">
+                                                    <div class="wpo-case-text-top">
+                                                        <h2>{{cause.title|title}}</h2>
+                                                        <div class="progress-section">
+                                                            <div class="process">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar" style="width: {{ cause.status }}%;">
+                                                                        <div class="progress-value"><span>{{cause.status}}</span>%</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <ul>
+                                                            <li><span>Raised:</span> ₦{{cause.raised}}</li>
+                                                            <li><span>Goal:</span> ₦{{cause.goal}}</li>
+                                                        </ul>
+                                                        <div class="case-b-text">
+                                                            {{cause.description|capfirst}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Comments" class="tab-pane wpo-blog-single-section">
+                                        <div class="comments-area">
+                                            <div class="comments-section">
+                                                <h3 class="comments-title">Comments</h3>
+                                                <ol class="comments">
+                                                    {% for comment in comments %}
+                                                    <li class="comment even thread-even depth-1" id="comment-1">
+                                                        <div id="div-comment-1">
+                                                            <div class="comment-main-area">
+                                                                <div class="comment-wrapper">
+                                                                    <div class="comments-meta">
+                                                                        <h4>{{comment.name|title}} <span class="comments-date">{{comment.created_at}}</span></h4>
+                                                                    </div>
+                                                                    <div class="comment-area">
+                                                                        {{comment.comment|capfirst}}
+                                                                        <div class="comments-reply">
+                                                                            <a class="comment-reply-link" data-comment-id="{{ comment.id }}" href="#"><i class="fa fa-reply" aria-hidden="true"></i><span>Reply</span></a>
+                                                                            <hr>
+                                                                               <!-- Display Replies -->
+                                                                                {% for reply in comment.replies.all %}
+                                                                                <div class="reply">
+                                                                                    <p><strong>{{ reply.name|title }}</strong> ({{ reply.created_at }})</p>
+                                                                                    <p>{{ reply.comment|capfirst }}</p>
+                                                                                </div>
+
+                                                                                {% endfor %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </li>
+                                                    {% empty %}
+                                                    <p>No comments yet.</p>
+                                                    {% endfor %}
+                                                </ol>
+                                            </div> <!-- end comments-section -->
+                                            <!-- Reply Form (hidden) -->
+                                            <div class="reply-form" style="display:none;">
+                                                <h2>Reply to Comment</h2>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    {{ comment_form.as_p }}
+                                                    
+                                                    <button type="form-submit" class="theme-btn submit-btn">Reply</button>
+                                                </form>
+                                            </div><hr>
+                                        </div> <!-- end comments-area -->
+                                        <div class="comment-respond">
+                                            <h3 class="comment-reply-title">Leave a Comment</h3>
+                                            <form method="post"  class="comment-form">
+                                                {{comment_form.as_p}}
+                                
+                                                {% csrf_token %}
+                                                <input type="hidden" name="parent" id="id_parent">
+                                                <div class="form-submit">
+                                                    <input  value="Comment" type="submit">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>         
+                                    <script>
+                                    document.querySelectorAll('.comment-reply-link').forEach(button => {
+                                        button.addEventListener('click', function(event) {
+                                            event.preventDefault();
+                                            const commentId = this.dataset.commentId;
+                                            const replyForm = document.querySelector('.reply-form');
+                                            replyForm.style.display = 'block';
+                                            document.querySelector('#id_parent').value = commentId;
+                                            
+                                            // Move the reply form to just below the comment being replied to
+                                            const commentDiv = this.closest('.comment');
+                                            commentDiv.appendChild(replyForm);
+                                        });
+                                    });
+                                    </script>                       
+                                    <div id="Donations" class="tab-pane">
+                                            
+                                        {% if not cause.raised == cause.goal  %}
+                                            <div class="submit-area">
+                                                <button  class="theme-btn submit-btn"><a href="{% url 'initiate_payment' cause.slug %}">Donate Now</a></button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            <div class="widget recent-post-widget">
+                                <h3>Recent causes</h3>
+                                {% for cause in causes %}
+                                <div class="posts">
+                                    <div class="post">
+                                        <div class="img-holder">
+                                            <img src="{{cause.image.url}}" alt>
+                                        </div>
+                                        <div class="details">
+                                            <h4><a href="{% url 'cause' cause.slug %}">{{cause.title|title}}</a></h4>
+                                            <span class="date">Raised ₦{{cause.raised}} of {{cause.goal}} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-event-details-area end -->
+{% endblock content %}

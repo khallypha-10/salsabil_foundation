@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>{{event.name|title}}</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>Event</span></li>
+                                <li><span>{{event.name|title}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+        <!-- wpo-event-details-area start -->
+        <div class="wpo-event-details-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                         <div class="wpo-event-item">
+                            <div class="wpo-event-img">
+                                <div class="entry-media post-slider">
+                                    <img src="{{event.image_1.url}}" alt></a>
+                                    {% if event.image_2 %}
+                                    <img src="{{event.image_2.url}}" alt>
+                                    {% endif %}
+                                    {% if event.image_3 %}
+                                    <img src="{{event.image_3.url}}" alt>
+                                    {% endif %}
+                                    {% if event.image_4 %}
+                                    <img src="{{event.image_4.url}}" alt>
+                                    {% endif %}
+                                    {% if event.image_5 %}
+                                    <img src="{{event.image_5.url}}" alt>
+                                    {% endif %}
+                                    {% if event.image_6 %}
+                                    <img src="{{event.image_6.url}}" alt>
+                                    {% endif %}
+                                </div>
+                                <div class="thumb-text">
+                                    <span>{{event.date.day}}</span>
+                                    <span>{{event.date|date:"M"}}</span>
+                                </div>
+                            </div>
+                            <div class="wpo-event-details-text">
+                                <h2>{{event.name|title}}</h2>
+                                 {{event.description|capfirst}}
+                            </div>
+                            <div class="wpo-event-details-wrap">
+                                <div class="wpo-event-details-tab">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#Schedule">Event Schedule</a></li>
+                                        <li><a data-toggle="tab" href="#Map">Event Location</a></li>
+                                        <li><a data-toggle="tab" href="#Contact">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                                <div class="wpo-event-details-content">
+                                    <div class="tab-content">
+                                        <div id="Schedule" class="tab-pane active">
+                                            {{event.schedule|capfirst}}
+                                        </div>
+                                        <div id="Map" class="tab-pane">
+                                            {{event.location|capfirst}}
+                                        </div>
+                                        <div id="Contact" class="tab-pane">
+                                            <div class="event-contact">
+                                                <div class="wpo-donations-details">
+                                                    <form method="post" class="contact-validation-active" action="{% url 'contact' %}">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                                <input type="text" class="form-control" required=True name="name" id="name" placeholder="First Name*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                                <input type="text" class="form-control" required=True name="lastname" id="name" placeholder="Last Name*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                                <input type="text" class="form-control" required=True name="subject" id="name" placeholder="Subject*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group clearfix">
+                                                                <input type="email" class="form-control" required=True name="email" id="email" placeholder="Email*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-12 form-group">
+                                                                <textarea class="form-control" required=True name="message"  id="note" placeholder="Massage*"></textarea>
+                                                            </div>
+                                                            <div class="submit-area col-lg-12 col-12">
+                                                                <button type="submit" class="theme-btn submit-btn">Submit Now</button>
+                                                                <div id="loader">
+                                                                    <i class="ti-reload"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% csrf_token %}
+                                                    </form>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            <div class="widget recent-post-widget">
+                                <h3>Recent events</h3>
+                                {% for event in events %}
+                                <div class="posts">
+                                    <div class="post">
+                                        <div class="img-holder">
+                                            <a href="{% url 'event' event.slug %}"><img src="{{event.image_1.url}}" alt>
+                                        </div>
+                                        <div class="details">
+                                            <h4><a href="{% url 'event' event.slug %}">{{event.name|title}}</a></h4>
+                                            <span class="date">{{event.date}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-event-details-area end -->
+        <div class="wpo-ne-footer">
+{% endblock content %}

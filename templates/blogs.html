@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>Our Blogs</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>Blogs</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+
+        <!-- start wpo-blog-pg-section -->
+        <section class="wpo-blog-pg-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                        <div class="wpo-wpo-blog-content">
+                            
+                            {% for blog in blogs %}
+                            <div class="post format-gallery">
+                                <div class="entry-media post-slider">
+                                    {% if blog.image_1 %}
+                                    <a href="{% url 'blog' blog.slug %}"><img src="{{blog.image_1.url}}" alt></a>
+                                    {% endif %}
+                                    {% if blog.image_2 %}
+                                    <img src="{{blog.image_2.url}}" alt>
+                                    {% endif %}
+                                    {% if blog.image_3 %}
+                                    <img src="{{blog.image_3.url}}" alt>
+                                    {% endif %}
+                                </div>
+                                <ul class="entry-meta"><br>
+                                    <li><a href="#"><i class="fa-solid fa-list"></i> {{blog.category}}</a></li>
+                                    <li><a href="#"><i class="ti-calendar"></i> {{blog.date_posted}}</a></li>
+                                    <li>
+                                        <!-- Blog content -->
+                                        <a href="#" class="like-button" data-id="{{ blog.id }}" data-url="{% url 'like_blog' blog.id %}">
+                                            <i class="ti-heart"></i> <span class="like-count">{{ blog.likes }}</span>
+                                        </a>
+                                    </li>
+                                    
+                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                    <script>
+                                    $(document).ready(function(){
+                                        function getCookie(name) {
+                                            var cookieValue = null;
+                                            if (document.cookie && document.cookie !== '') {
+                                                var cookies = document.cookie.split(';');
+                                                for (var i = 0; i < cookies.length; i++) {
+                                                    var cookie = cookies[i].trim();
+                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            return cookieValue;
+                                        }
+                                    
+                                        var csrftoken = getCookie('csrftoken');
+                                    
+                                        $('.like-button').on('click', function(e){
+                                            e.preventDefault();
+                                            var $this = $(this);
+                                            var blogId = $this.data('id');
+                                            var likeUrl = $this.data('url');
+                                            
+                                            $.ajax({
+                                                url: likeUrl,
+                                                method: "POST",
+                                                headers: {
+                                                    'X-CSRFToken': csrftoken
+                                                },
+                                                success: function(data){
+                                                    $this.find('.like-count').text(data.likes);
+                                                },
+                                                error: function(xhr, status, error){
+                                                    console.error(xhr.responseText);
+                                                }
+                                            });
+                                        });
+                                    });
+                                    </script>
+                                    
+    
+                                </ul>
+                                <h3><a href="{% url 'blog' blog.slug %}">{{blog.title|title}}</a></h3>
+                                {{blog.message|truncatewords:17}}
+                                <a href="{% url 'blog' blog.slug %}" class="read-more">Read More...</a>
+                            </div>
+                            {% endfor %}
+                            <div class="pagination-wrapper pagination-wrapper-left">
+                                <ul class="pg-pagination">
+                                    {% if blogs.has_previous %}
+                                    <li>
+                                        <a href="?page={{ blogs.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" aria-label="Previous">
+                                            <i class="fi ti-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                            
+                                    {% for page in blogs.paginator.page_range %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page }}{% if selected_category %}&category={{ selected_category }}{% endif %}">{{ page }}</a></li>
+                                    {% endfor %}
+                            
+                                    {% if blogs.has_next %}
+                                    <li>
+                                        <a href="?page={{ blogs.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" aria-label="Next">
+                                            <i class="fi ti-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            
+                            <div class="widget category-widget">
+                                <h3>Categories</h3>
+                                <ul>
+                                    <li><a href="{% url 'blogs' %}?category=Food" class="{% if selected_category == 'Food' %}active{% endif %}">Food</a></li>
+                                    <li><a href="{% url 'blogs' %}?category=Water" class="{% if selected_category == 'Water' %}active{% endif %}">Water</a></li>
+                                    <li><a href="{% url 'blogs' %}?category=Education" class="{% if selected_category == 'Education' %}active{% endif %}">Education</a></li>
+                                    <li><a href="{% url 'blogs' %}?category=Charity" class="{% if selected_category == 'Charity' %}active{% endif %}">Charity</a></li>
+                                    <li><a href="{% url 'blogs' %}?category=Medical Aid" class="{% if selected_category == 'Medical Aid' %}active{% endif %}">Medical Aid</a></li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end container -->
+        </section>
+        <!-- end wpo-blog-pg-section -->
+
+{% endblock content %}

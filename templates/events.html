@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+    <!-- .wpo-breadcumb-area start -->
+    <div class="wpo-breadcumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>Our Events</h2>
+                        <ul>
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li><span>Events</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .wpo-breadcumb-area end -->
+
+    <!-- wpo-event-area start -->
+    <div class="wpo-event-area-2 section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="wpo-section-title">
+                        <span>Our Events</span>
+                        <h2>All Events</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for event in events %}
+                <div class="col-md-4 col-sm-6 col-12 custom-grid">
+                    <div class="wpo-event-item">
+                        <div class="wpo-event-img">
+                            <a href="{% url 'event' event.slug %}"><img src="{{event.image_1.url}}" alt="">
+                        </div>
+                        <div class="wpo-event-text">
+                            <a href="{% url 'event' event.slug %}"><h2>{{event.name|truncatechars:20|title}}</h2>
+                            <ul>
+                                <li><i class="fa fa-clock-o" aria-hidden="true"></i>{{event.time}}</li>
+                                <li><i class="fi flaticon-pin"></i>{{event.location|capfirst}}</li>
+                            </ul>
+                            <i class="fa-regular fa-calendar"></i> {{event.date}}
+                            <hr>
+                            <p>{{event.description|truncatechars:100|capfirst}}</p>
+                            <a href="{% url 'event' event.slug %}">Learn More...</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+            
+            <div class="pagination-wrapper pagination-wrapper-left">
+                <ul class="pg-pagination">
+                    {% if events.has_previous %}
+                    <li>
+                        <a href="?page={{events.previous_page_number}}" aria-label="Previous">
+                            <i class="fi ti-angle-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+    
+                    {% for page in events.paginator.page_range %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                    {% endfor %}
+    
+                    {% if events.has_next %}
+                    <li>
+                        <a href="?page={{events.next_page_number}}" aria-label="Next">
+                            <i class="fi ti-angle-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- wpo-event-area end -->
+    
+{% endblock content %}

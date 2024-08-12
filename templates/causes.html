@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>Our Causes</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>Causes</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+
+        <!-- wpo-case-area start -->
+        <div class="wpo-case-area-2 section-padding">
+            <div class="container">
+               
+                <div class="wpo-case-wrap">
+                    <div class="row">
+                        {% for cause in causes %}
+                        <div class="col-md-4 col-sm-6 custom-grid col-12">
+                            <div class="wpo-case-item">
+                                <div class="wpo-case-img">
+                                    <a href="{% url 'cause' cause.slug %}"><img src="{{cause.image.url}}" alt=""></a>
+                                </div>
+                                <div class="wpo-case-content">
+                                    <div class="wpo-case-text-top">
+                                        <a href="{% url 'cause' cause.slug %}"><h2>{{cause.title|title|truncatechars:20}}</h2></a>
+                                        <div class="progress-section">
+                                            <div class="process">
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width: {{ cause.status }}%;">
+                                                        <div class="progress-value"><span>{{cause.status}}</span>%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li><span>Raised:</span> ₦{{cause.raised}}</li>
+                                            <li><span>Goal:</span> ₦{{cause.goal}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="case-btn">
+                                        <ul>
+                                            <li><a href="{% url 'cause' cause.slug %}">Learn More</a></li>
+                                            {% if not cause.raised == cause.goal %}
+                                            <li><a href="{% url 'initiate_payment' cause.slug %}">Donate Now</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="pagination-wrapper pagination-wrapper-left">
+                            <ul class="pg-pagination">
+                                {% if causes.has_previous %}
+                                <li>
+                                    <a href="?page={{causes.previous_page_number}}" aria-label="Previous">
+                                        <i class="fi ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+                
+                                {% for page in causes.paginator.page_range %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                                {% endfor %}
+                
+                                {% if causes.has_next %}
+                                <li>
+                                    <a href="?page={{causes.next_page_number}}" aria-label="Next">
+                                        <i class="fi ti-angle-right"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-case-area end -->
+        
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% load static %}
+ <!-- Start header -->
+ <header id="header" class="wpo-site-header wpo-header-style-3">
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-6 col-sm-7 col-12">
+                    <div class="contact-intro">
+                        <ul>
+                            <li><i class="fi flaticon-call"></i>+234 905 923 4041</li>
+                            <li><i class="fi flaticon-envelope"></i> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Salsabilcharityfoundation@gmail.com">Salsabilcharityfoundation@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end topbar -->
+    <nav class="navigation navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="open-btn">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/image1.png' %}" alt="logo"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse navbar-right navigation-holder">
+                <button class="close-navbar"><i class="ti-close"></i></button>
+                <ul class="nav navbar-nav">
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'causes' %}">Causes</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'events' %}">Events</a>
+                    </li>
+                   
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'blogs' %}">Blogs</a>
+                        
+                    </li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div><!-- end of nav-collapse -->
+        </div><!-- end of container -->
+    </nav>
+</header>
+<!-- end of header -->

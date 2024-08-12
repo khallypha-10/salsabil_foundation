@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                <i class="fa-solid fa-thumbs-up"></i> {{ message }}
+                </div>
+    {% endfor %}
+ <!-- Start header -->
+ <header id="header" class="wpo-site-header wpo-header-style-2">
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-6 col-sm-7 col-12">
+                    <div class="contact-intro">
+                        <ul>
+                            <li><i class="fi flaticon-call"></i>+2349059234041</li>
+                            <div class="case-btn">
+                              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Salsabilcharityfoundation@gmail.com" class="theme-btn-s2"><i class="fi flaticon-envelope"></i>Salsabilcharityfoundation@gmail.com</a>
+                            </div>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> <!-- end topbar -->
+    <nav class="navigation navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="open-btn">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}"><img src=" {% static 'images/image1.png' %}" alt="logo"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse navbar-right navigation-holder">
+                <button class="close-navbar"><i class="ti-close"></i></button>
+                <ul class="nav navbar-nav">
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'home' %}">Home</a>
+                       
+                    </li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'causes' %}">Causes</a></li>
+                    <li><a href="{% url 'events' %}">Events</a></li>
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'blogs' %}">Blogs</a>
+                        
+                    </li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div><!-- end of nav-collapse -->
+        </div><!-- end of container -->
+    </nav>
+</header>
+<!-- end of header -->
+
+    <!-- start page-wrapper -->
+    <div class="page-wrapper">
+        <!-- start preloader -->
+        <div class="preloader">
+            
+        </div>
+        <!-- end preloader -->
+       
+        <!-- start of hero -->
+        <section class="hero hero-style-1">
+            <div class="hero-slider">
+                <div class="slide">
+                    <div class="container">
+                        <img src="{% static 'images/IMG-20240807-WA0009.jpg' %}" alt class="slider-bg">
+                        <div class="row">
+                            <div class="col col-md-6 slide-caption">
+                                <div class="slide-title">
+                                    <h2>Let’s be Kind for <span>Children</span></h2>
+                                </div>
+                                <div class="slide-subtitle">
+                                    <p>You help is invaluable to us.</p>
+                                </div>
+                                <div class="btns">
+                                    <a href="{% url 'about' %}" class="theme-btn-s2">About Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="container">
+                        <img src="{% static 'images/IMG-20240807-WA0008.jpg' %}" alt class="slider-bg">
+                        <div class="row">
+                            <div class="col col-md-6 slide-caption">
+                                <div class="slide-title">
+                                    <h2>Let’s be Kind for <span>Children</span></h2>
+                                </div>
+                                <div class="slide-subtitle">
+                                    <p>You help is invaluable to us.</p>
+                                </div>
+                                <div class="btns">
+                                    <a href="{% url 'about' %}" class="theme-btn-s2">About Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="container">
+                        <img src="{% static 'images/IMG-20240807-WA0005.jpg' %}" alt class="slider-bg">
+                        <div class="row">
+                            <div class="col col-md-6 slide-caption">
+                                <div class="slide-title">
+                                    <h2>Let’s be Kind for <span>Children</span></h2>
+                                </div>
+                                <div class="slide-subtitle">
+                                    <p>You help is invaluable to us.</p>
+                                </div>
+                                <div class="btns">
+                                    <a href="{% url 'about' %}" class="theme-btn-s2"> About Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end of hero slider -->
+        <!-- wpo-mission-area start -->
+        <div class="wpo-mission-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-section-title">
+                            <span>What We Do?</span>
+                            <h2>We Aim To Help The Helpless</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="wpo-mission-wrap">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-12 custom-grid">
+                            <div class="wpo-mission-item">
+                                <div class="wpo-mission-icon">
+                                    <i class="fi flaticon-water"></i>
+                                </div>
+                                <div class="wpo-mission-content">
+                                    <h2>Clean Water</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12 custom-grid">
+                            <div class="wpo-mission-item">
+                                <div class="wpo-mission-icon-2">
+                                    <i class="fi flaticon-food-and-restaurant"></i>
+                                </div>
+                                <div class="wpo-mission-content">
+                                    <h2>Healthy Food</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12 custom-grid">
+                            <div class="wpo-mission-item">
+                                <div class="wpo-mission-icon-3">
+                                    <i class="fi flaticon-book"></i>
+                                </div>
+                                <div class="wpo-mission-content">
+                                    <h2>Good Education</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12 custom-grid">
+                            <div class="wpo-mission-item">
+                                <div class="wpo-mission-icon-4">
+                                    <i class="fi flaticon-care"></i>
+                                </div>
+                                <div class="wpo-mission-content">
+                                    <h2>Medical Care</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-mission-area end -->
+        <!-- wpo-about-area start -->
+        <div class="wpo-about-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 colsm-12">
+                        <div class="wpo-about-text">
+                            <div class="wpo-section-title">
+                                <span>What We Do?</span>
+                                <h2>We Provide Aid to The Less Privileged</h2>
+                            </div>
+                            <h4>Mission Statement:</h4>
+                            <p>Empowering individuals and families to reach their full potential, while promoting sustainable development and social responsibility, through access to essential resources, support, and opportunities, fostering a thriving community that values education, economic growth, and well-being.</p>
+
+                            <h4>Vision Statement:</h4>
+                            <p>A world where every individual has the opportunity to succeed, regardless of their background or circumstances, and where communities are strong, supportive, and prosperous, achieving the United Nations Sustainable Development Goals (SDGs) for a better future.</p>
+
+                            <h4>About Us:</h4>
+                            <p>Salsabil Charity Foundation is a community-focused organization dedicated to unlocking the potential of every individual, while contributing to the achievement of the SDGs. Our mission is to provide safe environments for families to grow and prosper through:...</p>
+                            <ul>
+                                <br>
+                            </ul>
+                            <div class="btns">
+                                <a href="{% url 'about' %}" class="theme-btn">More...</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6 colsm-12">
+                        <div class="wpo-about-img">
+                            <img src="{% static 'images/image2.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-about-area end -->
+        <!-- wpo-case-area start -->
+        <div class="wpo-case-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-section-title">
+                            <span>Our Causes</span>
+                            <h2>View Some Of Our Causes</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="wpo-case-wrap">
+                    <div class="wpo-case-slider">
+                        {% for cause in causes %}
+                        <div class="wpo-case-single">
+                            <div class="wpo-case-item">
+                                <div class="wpo-case-img">
+                                    <li><a href="{% url 'cause' cause.slug %}"><img src="{{cause.image.url}}" alt=""></a>
+                                </div>
+                                <div class="wpo-case-content">
+                                    <div class="wpo-case-text-top">
+                                        <h2>{{cause.title|title}}</h2>
+                                        <div class="progress-section">
+                                            <div class="process">
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width: {{ cause.status }}%;">
+                                                        <div class="progress-value"><span>{{cause.status}}</span>%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li><span>Raised:</span> ₦{{cause.raised}}</li>
+                                            <li><span>Goal:</span> ₦{{cause.goal}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="case-btn">
+                                        <ul>
+                                            <li><a href="{% url 'cause' cause.slug %}">Learn More</a></li>
+                                            {% if not cause.raised == cause.goal %}
+                                            <li><a href="{% url 'initiate_payment' cause.slug %}">Donate Now</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-case-area end -->
+        <!-- .wpo-counter-area start -->
+        <div class="wpo-counter-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="wpo-counter-grids">
+                            <div class="grid">
+                                <div>
+                                    <h2><span class="odometer" data-count="{{events_count}}"></span></h2>
+                                </div>
+                                <p>Events</p>
+                            </div>
+                            <div class="grid">
+                                <div>
+                                    <h2> <span class="odometer" data-count="{{total}}"> </span></h2>
+                                </div>
+                                <p>Funds Raised (₦)</p>
+                            </div>
+                            <div class="grid">
+                                <div>
+                                    <h2><span class="odometer" data-count="50"></span>+</h2>
+                                </div>
+                                <p>Volunteers</p>
+                            </div>
+                            <div class="grid">
+                                <div>
+                                    <h2><span class="odometer" data-count="{{causes_count}}"></span></h2>
+                                </div>
+                                <p>Causes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-counter-area end -->
+        
+        <div class="wpo-world-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-world-section">
+                            <h2>Let's Change The World With Humanity</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- world area end -->
+        <!-- wpo-event-area start -->
+        <div class="wpo-event-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-section-title">
+                            <span>Our Events</span>
+                            <h2>Upcoming Events</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for event in events %}
+                    <div class="col-md-4 col-sm-6 col-12 custom-grid">
+                        <div class="wpo-event-item">
+                            <div class="wpo-event-img">
+                                <a href="{% url 'event' event.slug %}"><img src="{{event.image_1.url}}" alt="">
+                                <div class="thumb-text">
+                                    <span>{{event.date.day}}</span>
+                                    <span>{{event.date|date:"M"}}</span>
+                                </div>
+                            </div>
+                            <div class="wpo-event-text">
+                                <a href="{% url 'event' event.slug %}"><h2>{{event.name|truncatechars:20|title}}</h2>
+                                <ul>
+                                    <li><i class="fa fa-clock-o" aria-hidden="true"></i>{{event.time}}</li>
+                                    <li><i class="fi flaticon-pin"></i>{{event.location}}</li>
+                                </ul>
+                                <p>{{event.description|truncatechars:100}}</p>
+                                <a href="{% url 'event' event.slug %}">Learn More...</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- wpo-event-area end -->
+        <!-- wpo-cta-area start -->
+        <div class="wpo-cta-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="wpo-cta-text">
+                            <h2>We Can Help The Poor Together</h2>
+                            <p>Join us in giving aid to the needy. </p>
+                            <div class="btns">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-cta-area end -->
+        <!-- wpo-blog-area start -->
+        <div class="wpo-blog-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-section-title">
+                            <span>Our Blog</span>
+                            <h2>Latest Blogs</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for blog in blogs %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 custom-grid">
+                        <div class="wpo-blog-item">
+                            <div class="wpo-blog-img">
+                                <a href="{% url 'blog' blog.slug %}"><img src="{{blog.image_1.url}}" alt=""></a>
+                            </div>
+                            <div class="wpo-blog-content">
+                                <span>{{blog.date_posted}}</span>
+                                <a href="{% url 'blog' blog.slug %}"><h2>{{blog.title|truncatewords:3|title}}</h2></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- wpo-blog-area end -->
+        
+        </div>
+    </div>
+    <!-- end of page-wrapper -->
+    
+
+
+{% endblock content %}

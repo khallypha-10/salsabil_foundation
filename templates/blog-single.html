@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>{{blog.title}}</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>{{blog.title}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+        <!-- start wpo-blog-single-section -->
+        <section class="wpo-blog-single-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                        <div class="wpo-wpo-blog-content ">
+                            <div class="post format-gallery">
+                                <div class="entry-media post-slider">
+                                    <img src="{{blog.image_1.url}}" alt></a>
+                                    {% if blog.image_2 %}
+                                    <img src="{{blog.image_2.url}}" alt>
+                                    {% endif %}
+                                    {% if blog.image_3 %}
+                                    <img src="{{blog.image_3.url}}" alt>
+                                    {% endif %}
+                                </div>
+                                <ul class="entry-meta"><hr>
+                                    <li><a href="#"><i class="fa-solid fa-list"></i> {{blog.category}}</a></li>
+                                    <li><a href="#"><i class="ti-calendar"></i> {{blog.date_posted}}</a></li>
+                                    <li>
+                                        <!-- Blog content -->
+                                        <a href="#" class="like-button" data-id="{{ blog.id }}" data-url="{% url 'like_blog' blog.id %}">
+                                            <i class="ti-heart"></i> <span class="like-count">{{ blog.likes }}</span>
+                                        </a>
+                                    </li>   
+                                </ul>
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script>
+                                $(document).ready(function(){
+                                    function getCookie(name) {
+                                        var cookieValue = null;
+                                        if (document.cookie && document.cookie !== '') {
+                                            var cookies = document.cookie.split(';');
+                                            for (var i = 0; i < cookies.length; i++) {
+                                                var cookie = cookies[i].trim();
+                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        return cookieValue;
+                                    }
+                                
+                                    var csrftoken = getCookie('csrftoken');
+                                
+                                    $('.like-button').on('click', function(e){
+                                        e.preventDefault();
+                                        var $this = $(this);
+                                        var blogId = $this.data('id');
+                                        var likeUrl = $this.data('url');
+                                        
+                                        $.ajax({
+                                            url: likeUrl,
+                                            method: "POST",
+                                            headers: {
+                                                'X-CSRFToken': csrftoken
+                                            },
+                                            success: function(data){
+                                                $this.find('.like-count').text(data.likes);
+                                            },
+                                            error: function(xhr, status, error){
+                                                console.error(xhr.responseText);
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <h2>{{blog.title|title}}</h2>
+                                {{blog.message}}
+                            </div>
+                            <div class="tag-share clearfix">
+                                <div class="tag">
+                                    <ul>
+                                        <li><a href="#">{{blog.category}}</a></li>
+                                        
+                                    </ul>
+                                </div>
+                                <div class="share">
+                                    <ul>
+                                        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"><i class="ti-facebook"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog.title }}" target="_blank"><i class="ti-twitter-alt"></i></a></li>
+                                        <li><a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}" target="_blank"><i class="ti-instagram"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end tag-share -->
+                            
+                        </div>
+                        <div class="comments-area">
+                            <div class="comments-section">
+                                <h3 class="comments-title">Comments</h3>
+                                <ol class="comments">
+                                    {% for comment in comments %}
+                                    <li class="comment even thread-even depth-1" id="comment-1">
+                                        <div id="div-comment-1">
+                                            <div class="comment-main-area">
+                                                <div class="comment-wrapper">
+                                                    <div class="comments-meta">
+                                                        <h4>{{comment.name|title}} <span class="comments-date">{{comment.created_at}}</span></h4>
+                                                    </div>
+                                                    <div class="comment-area">
+                                                        <p>{{comment.comment}} </p>
+                                                        
+                                                        <div class="form-submit">
+                                                            <a class="comment-reply-link" data-comment-id="{{ comment.id }}" href="#"><i class="fa fa-reply" aria-hidden="true"></i><span>Reply</span></a>
+                                                           
+                                                        </div>
+                                                        
+                                                        <hr>
+                                                         <!-- Display Replies -->
+                                                         {% for reply in comment.replies.all %}
+                                                         <div class="reply">
+                                                             <p><strong>{{ reply.name|title }}</strong> ({{ reply.created_at }})</p>
+                                                             <p>{{ reply.comment }}</p>
+                                                         </div>
+
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </li>
+                                                        
+                                    {% empty %}
+                                    <p>No comments yet.</p>
+                                    {% endfor %}
+                                </ol>
+                            </div> <!-- end comments-section -->
+                        </div> <!-- end comments-area -->
+                         <div class="comment-respond">
+                            <!-- Reply Form (hidden) -->
+                    <div class="reply-form" style="display:none;">
+                        <h2>Reply to Comment</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ comment_form.as_p }}
+                            
+                            <button type="form-submit" class="theme-btn submit-btn">Reply</button>
+                        </form>
+                    </div><hr>
+                            <h3 class="comment-reply-title">Leave a Comment</h3>
+                            <form method="post"  class="comment-form">
+                                
+                                {{comment_form.as_p}}
+                                
+                                {% csrf_token %}
+                                <input type="hidden" name="parent" id="id_parent">
+                                <div class="form-submit">
+                                    <input  value="Comment" type="submit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        document.querySelectorAll('.comment-reply-link').forEach(button => {
+                            button.addEventListener('click', function(event) {
+                                event.preventDefault();
+                                const commentId = this.dataset.commentId;
+                                const replyForm = document.querySelector('.reply-form');
+                                replyForm.style.display = 'block';
+                                document.querySelector('#id_parent').value = commentId;
+                                
+                                // Move the reply form to just below the comment being replied to
+                                const commentDiv = this.closest('.comment');
+                                commentDiv.appendChild(replyForm);
+                            });
+                        });
+                    </script>
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            
+                            <div class="widget recent-post-widget">
+                                <h3>Recent blogs</h3>
+                                {% for blog in blogs %}
+                                <div class="posts">
+                                    <div class="post">
+                                        <div class="img-holder">
+                                            <a href="{% url 'blog' blog.slug %}"><img src="{{blog.image_1.url}}" alt></a>
+                                        </div>
+                                        <div class="details">
+                                            <h4><a href="{% url 'blog' blog.slug %}">{{blog.title|title}}</a></h4>
+                                            <span class="date">{{blog.date_posted}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end container -->
+        </section>
+        <!-- end wpo-blog-single-section -->
+        <div class="wpo-ne-footer">
+          
+{% endblock content %}

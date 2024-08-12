@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% include "header.html" %}
+<!-- .wpo-breadcumb-area start -->
+<div class="wpo-breadcumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="wpo-breadcumb-wrap">
+                    <h2>Contact Us</h2>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><span>Contact</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .wpo-breadcumb-area end -->
+
+<!-- start wpo-contact-form-map -->
+<section class="wpo-contact-form-map section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="contact-form">
+                            <h2>Get In Touch</h2>
+                            <form method="post" action="{% url 'contact' %}" class="contact-validation-active" >
+                                <div>
+                                    <input type="text" class="form-control"  required=True name="name" id="name" placeholder="First Name*">
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" required=True name="lastname" id="name2" placeholder="Last Name*">
+                                </div>
+                                <div class="clearfix">
+                                    <input type="email" class="form-control" required=True name="email" id="email" placeholder="Email*">
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" required=True name="subject" id="subject" placeholder="Subject*">
+                                </div>
+                                <div>
+                                    <textarea class="form-control" required=True name="message"  id="note" placeholder="Message...*"></textarea>
+                                </div>
+                                <div class="submit-area">
+                                    <button type="submit" class="theme-btn submit-btn">Send Message</button>
+                                    <div id="loader">
+                                        <i class="ti-reload"></i>
+                                    </div>
+                                </div>
+                                {% csrf_token %}
+                            </form>
+                        </div>                            
+                    </div>
+                    <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                        <img src="https://www.seekpng.com/png/detail/125-1254954_contact-us-png-images-for-website.png" alt="Contact Us Png Images For Website@seekpng.com">
+                    </div>
+                </div>
+
+                <div class="wpo-contact-info">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="info-item">
+                                <a class="link-light" href="https://mail.google.com/mail/?view=cm&fs=1&to=Salsabilcharityfoundation@gmail.com">Salsabilcharityfoundation@gmail.com</a>
+                                <br><br>
+                                <div class="info-wrap">
+                                    <div class="info-icon-2">
+                                        <i class="fi flaticon-envelope"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <span>Official Mail</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="info-item">
+                                <h2>+234 905 923 4041</h2>
+                                <div class="info-wrap">
+                                    <div class="info-icon-3">
+                                        <i class="ti-headphone-alt"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <span>Official Phone</span>
+                                    </div>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end container -->
+</section>
+
+{% endblock content %}
