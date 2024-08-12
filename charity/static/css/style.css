@@ -3192,7 +3192,7 @@ hero-style3
 --------------------------------------------------------------*/
 .wpo-site-footer,
 .wpo-site-footer {
-    background: #062265;
+    background: #000000;
     position: relative;
     font-size: 15px;
     overflow: hidden;
@@ -3204,7 +3204,7 @@ hero-style3
 }
 
 .wpo-ne-footer {
-    background: #062265;
+    background: #000000;
 }
 
 .wpo-site-footer-2 {
@@ -3448,7 +3448,7 @@ hero-style3
 .wpo-site-footer-2 .wpo-lower-footer {
     text-align: center;
     position: relative;
-    background: #011b58;
+    background: #000000;
 }
 
 .wpo-site-footer .wpo-lower-footer .row,
@@ -3530,7 +3530,7 @@ hero-style3
 .sticky-on {
     opacity: 1;
     top: 0;
-    background: #062265 !important;
+    background: #000000 !important;
 }
 
 .wpo-header-style-3 .sticky-on {
@@ -3565,7 +3565,7 @@ hero-style3
 --------------------------------------------------------------*/
 .wpo-news-letter-section,
 .wpo-news-letter-section-2 {
-    background: #062265;
+    background: #000000;
     text-align: center;
     padding: 100px 0;
 }
@@ -4022,7 +4022,7 @@ hero-style3
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(6, 34, 101, .85);
+    background: #000000;
 }
 
 .wpo-counter-area .wpo-counter-grids .grid,
@@ -4122,7 +4122,7 @@ hero-style3
 }
 
 .wpo-team-content ul li a {
-    color: #062265;
+    color: #000000;
 }
 
 .wpo-team-content ul li:last-child {
@@ -4231,7 +4231,7 @@ hero-style3
     padding: 15px 20px;
     background: #fff;
     border-radius: 5px;
-    color: #062265;
+    color: #000000;
     font-weight: 600;
 }
 
