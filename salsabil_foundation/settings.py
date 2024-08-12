@@ -27,7 +27,7 @@ DEBUG = True
 CSRF_TRUSTED_ORIGINS = [
     'https://www.salsabilfoundation.com','https://salsabilfoundation.com', 'http://www.salsabilfoundation.com', 'http://salsabilfoundation.com'
 ]
-ALLOWED_HOSTS = ['127.0.0.1', '51.20.85.244', 'www.salsabilfoundation.com', 'salsabilfoundation.com', 'https://www.salsabilfoundation.com','https://salsabilfoundation.com', 'http://www.salsabilfoundation.com', 'http://salsabilfoundation.com']
+ALLOWED_HOSTS = ['127.0.0.1', '16.171.196.205', 'www.salsabilfoundation.com', 'salsabilfoundation.com', 'https://www.salsabilfoundation.com','https://salsabilfoundation.com', 'http://www.salsabilfoundation.com', 'http://salsabilfoundation.com']
 
 
 
