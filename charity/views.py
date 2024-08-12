@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Contact, Event, Blog, Comment, Cause, Comment_Cause, Member, Payment, Subscribers
+from .models import Contact, Event, Blog, Comment, Cause, Comment_Cause, Member, Payment
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
@@ -23,14 +23,6 @@ def home(request):
     context = {'events': events, 'blogs': blogs, 'causes': causes, "total": total, 'causes_count': causes_count, 'events_count': events_count}
     return render(request, "home.html", context)
 
-def subscribers(request):
-    if request.method == 'POST':
-        sub_name = request.POST['sub']
-        sub = Subscribers(email=sub_name)
-        sub.save()
-        messages.success(request, 'You have subscribed!')
-        return redirect('home')
-    return render(request, "base.html")
 
 def about(request):
     members = Member.objects.all()

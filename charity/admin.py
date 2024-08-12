@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact, Event, Blog, Comment, Cause, Comment_Cause, Member, Payment, Subscribers
+from .models import Contact, Event, Blog, Comment, Cause, Comment_Cause, Member, Payment
 # Register your models here.
 
 @admin.register(Contact)
@@ -46,6 +46,4 @@ class  PaymentAdmin(admin.ModelAdmin):
     list_filter = ["date_created", "verified"]
     search_fields = ["name", "ref", "cause__title" ]
 
-@admin.register(Subscribers)
-class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ['email']
+
