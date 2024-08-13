@@ -21,3 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('charity.urls'))
 ]
+admin.site.site_header = "Salsabil"
+admin.site.site_title = "Salsabil foundation"
+admin.site.index_title = "Welcome to Salsabiil admin"
