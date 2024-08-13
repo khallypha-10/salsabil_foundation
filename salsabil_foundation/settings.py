@@ -11,23 +11,31 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-CSRF_TRUSTED_ORIGINS = [
-    'https://www.salsabilfoundation.com','https://salsabilfoundation.com', 'http://www.salsabilfoundation.com', 'http://salsabilfoundation.com'
-]
-ALLOWED_HOSTS = ['127.0.0.1', '16.171.196.205', 'www.salsabilfoundation.com', 'salsabilfoundation.com', 'https://www.salsabilfoundation.com','https://salsabilfoundation.com', 'http://www.salsabilfoundation.com', 'http://salsabilfoundation.com']
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 
@@ -81,8 +89,14 @@ WSGI_APPLICATION = 'salsabil_foundation.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-  
+        'ENGINE': env('ENGINE'),
+        'NAME': env('NAME'),
+        'USER': env('USER'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'),
+        'PORT': env('PORT'),
+    }
+}
 
 
 # Password validation
@@ -127,4 +141,21 @@ MEDIA_ROOT= 'media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = env('DEFAULT_AUTO_FIELD')
+PAYSTACK_SECRET_KEY = env('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = env('PAYSTACK_PUBLIC_KEY')
+
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME =env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_SIGNATURE_NAME = env('AWS_S3_SIGNATURE_NAME')
+AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL =  None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
+
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME') 
+AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT') 
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
