@@ -78,7 +78,7 @@ class Cause(models.Model):
     slug = models.SlugField(max_length=150, blank=True, null=True)
     title = models.CharField(max_length=40)
     description = models.TextField()
-    image = ResizedImageField(size=[400, 300], quality=100, crop=['middle', 'center'], upload_to='causes')
+    image = ResizedImageField(size=[400, 300], quality=100, crop=['middle', 'center'], upload_to='cause')
     goal = models.PositiveIntegerField()
     raised = models.PositiveIntegerField(default=0)
 
