@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
     'charity',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +133,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+STATIC_URL = 'static/'
 STATIC_ROOT = 'static/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT= 'media/'
 
 # Default primary key field type
@@ -153,22 +154,8 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
 DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
-# Set MEDIA_URL to point to your S3 bucket
-AWS_S3_CUSTOM_DOMAIN = salsabilcharitybucket.s3.amazonaws.com
-
-STATICFILES_LOCATION = "static"
-STATIC_URL = f"https://salsabilcharitybucket/STATICFILES_LOCATION/"
-
-MEDIAFILES_LOCATION = "media"
-MEDIA_URL = f"https://salsabilcharitybucket/MEDIAFILES_LOCATION/"
-
-STORAGES = {
-    "default": {"BACKEND": "salsabil_foundation.custom_storage.MediaStorage"},
-    "staticfiles": {"BACKEND": "salsabil_foundation.custom_storage.StaticStorage"},
-}
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=2592000",
-}
+AWS_S3_CUSTOM_DOMAIN = f'salsabilcharitybucket.s3.amazonaws.com'
+MEDIA_URL = f'https://eu-north-1.console.aws.amazon.com/s3/buckets/salsabilcharitybucket?region=eu-north-1'
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME') 
 AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT') 
