@@ -154,8 +154,8 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
 DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
-AWS_S3_CUSTOM_DOMAIN = f'salsabilcharitybucket.s3.amazonaws.com'
-MEDIA_URL = f'https://eu-north-1.console.aws.amazon.com/s3/buckets/salsabilcharitybucket?region=eu-north-1'
+AWS_S3_CUSTOM_DOMAIN = 'salsabilcharitybucket.s3.amazonaws.com'
+MEDIA_URL = 'https://eu-north-1.console.aws.amazon.com/s3/buckets/salsabilcharitybucket'
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME') 
 AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT') 
