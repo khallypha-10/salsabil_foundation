@@ -155,8 +155,21 @@ AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
 DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
 # Set MEDIA_URL to point to your S3 bucket
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+AWS_S3_CUSTOM_DOMAIN = salsabilcharitybucket.s3.amazonaws.com
+
+STATICFILES_LOCATION = "static"
+STATIC_URL = f"https://salsabilcharitybucket/STATICFILES_LOCATION/"
+
+MEDIAFILES_LOCATION = "media"
+MEDIA_URL = f"https://salsabilcharitybucket/MEDIAFILES_LOCATION/"
+
+STORAGES = {
+    "default": {"BACKEND": "salsabil_foundation.custom_storage.MediaStorage"},
+    "staticfiles": {"BACKEND": "salsabil_foundation.custom_storage.StaticStorage"},
+}
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=2592000",
+}
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME') 
 AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT') 
