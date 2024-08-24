@@ -162,10 +162,10 @@ DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3boto3.s3StaticStorage",
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
 
     "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.s3StaticStorage",
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
 }
