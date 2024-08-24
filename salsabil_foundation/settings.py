@@ -154,10 +154,18 @@ AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
-DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME') 
 AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT') 
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.s3StaticStorage",
+    },
+
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.s3StaticStorage",
+    },
+}
