@@ -40,8 +40,9 @@
                                     <li><a href="#"><i class="ti-calendar"></i> {{blog.date_posted}}</a></li>
                                     <li>
                                         <!-- Blog content -->
+                                        <i class="ti-heart"></i> 
                                         <a href="#" class="like-button" data-id="{{ blog.id }}" data-url="{% url 'like_blog' blog.id %}">
-                                            <i class="ti-heart"></i> <span class="like-count">{{ blog.likes }}</span>
+                                            <span class="like-count">{{ blog.likes }}</span>
                                         </a>
                                     </li>   
                                 </ul>
