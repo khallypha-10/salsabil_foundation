@@ -195,4 +195,4 @@ def verify_payment(request, ref):
         cause.raised += payment.amount  
         cause.save()
         return render(request, "success.html")
-    return render(request, "success.html")
+    return render(request, "success.html", {"payment": payment})
