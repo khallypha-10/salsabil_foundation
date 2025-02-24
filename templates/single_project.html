@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+{% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                    <p class="text-center text-info-emphasis fs-2"> {{ message }}</p>
+                </div>
+    {% endfor %}
+
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        <ul class="text-center">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>{{project.title|title}}</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>Project</span></li>
+                                <li><span>{{project.title|title}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+        <!-- wpo-event-details-area start -->
+        <div class="wpo-event-details-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                         <div class="wpo-event-item">
+                            
+                            <div class="wpo-event-details-text">
+                                <h2>{{project.title|title}}</h2>
+                                 {{project.description|capfirst}}<br><hr>
+                                 {% if request.user == project.organization.user %}
+                                 <a href="{% url 'create-collaboration' project.slug %}" class=" link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                    <button type="button" class="btn btn-warning">Request Collaboration</button>
+                                  </a>
+                                 <a href="{% url 'edit-project' project.slug %}" class=" link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                    <button type="button" class="btn btn-warning">Edit Project</button>
+                                  </a>
+                                  {% endif %}
+                                  {% if project.amount_raised != project.budget %}
+                                  <a href="{% url 'initiate_payment_project' project.slug %}"><button  class="btn btn-warning">Donate Now</button></a>
+                                  {% endif %}
+                            </div>
+                            <div class="wpo-event-details-wrap">
+                                <div class="wpo-event-details-tab">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#Schedule">project Schedule</a></li>
+                                        <li><a data-toggle="tab" href="#Map">project Location</a></li>
+                                        <li><a data-toggle="tab" href="#Contact">Contact Us</a></li>
+                                        <li><a data-toggle="tab" href="#Volunteers">volunteers</a></li>
+                                        <li><a data-toggle="tab" href="#Budget">Budget</a></li>
+                                    </ul>
+                                </div>
+                                <div class="wpo-event-details-content">
+                                    <div class="tab-content">
+                                        <div id="Schedule" class="tab-pane active">
+                                            {{project.schedule|capfirst}}
+                                        </div>
+                                        <div id="Map" class="tab-pane">
+                                            {{project.location|capfirst}}
+                                        </div>
+                                        <div id="Contact" class="tab-pane">
+                                            <div class="event-contact">
+                                                <div class="wpo-donations-details">
+                                                    <form method="post" class="contact-validation-active" action="{% url 'contact' %}">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                                <input type="text" class="form-control" required=True name="name" id="name" placeholder="First Name*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                                <input type="text" class="form-control" required=True name="lastname" id="name" placeholder="Last Name*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                                <input type="text" class="form-control" required=True name="subject" id="name" placeholder="Subject*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group clearfix">
+                                                                <input type="email" class="form-control" required=True name="email" id="email" placeholder="Email*">
+                                                            </div>
+                                                            <div class="col-lg-12 col-12 form-group">
+                                                                <textarea class="form-control" required=True name="message"  id="note" placeholder="Massage*"></textarea>
+                                                            </div>
+                                                            <div class="submit-area col-lg-12 col-12">
+                                                                <button type="submit" class="theme-btn submit-btn">Submit Now</button>
+                                                                <div id="loader">
+                                                                    <i class="ti-reload"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% csrf_token %}
+                                                    </form>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div id="Volunteers" class="tab-pane">
+                                            Volunteers Needed: {{project.volunteers_needed}}<br>
+                                            Current Volunteers: {{volunteers_number}}
+                                            {% if volunteers_number != project.volunteers_needed %}
+                                            <form method="post" class="contact-validation-active">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                        {{form.name}}
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                        {{form.email}}
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group">
+                                                        {{form.phone_number}}
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 form-group clearfix">
+                                                        {{form.occupation}}
+                                                    </div>
+                                                    <div class="col-lg-12 col-12 form-group">
+                                                        {{form.address}}
+                                                    </div>
+                                                    <div class="submit-area col-lg-12 col-12">
+                                                        <button type="submit" class="theme-btn submit-btn">Submit Now</button>
+                                                        <div id="loader">
+                                                            <i class="ti-reload"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% csrf_token %}
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                        <div id="Budget" class="tab-pane">
+                                              <div class="progress-section">
+                                                <div class="process">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width: {{ project.percentage }}%;">
+                                                            <div class="progress-value"><span>{{project.percentage}}</span>%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul>
+                                                <li><span>Raised:</span> ₦{{project.amount_raised}}</li>
+                                                <li><span>Goal:</span> ₦{{project.budget}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            <div class="widget recent-post-widget">
+                                <h3>Recent projects</h3>
+                                {% for project in projects %}
+                                <div class="posts">
+                                    <div class="post">
+                                        <div class="img-holder">
+                                            <a href="{% url 'project' project.slug %}">
+                                        </div>
+                                        <div class="details">
+                                            <h4><a href="{% url 'project' project.slug %}">{{project.title|title}}</a></h4>
+                                            <span class="date">{{project.date}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- wpo-event-details-area end -->
+        <div class="wpo-ne-footer">
+{% endblock content %}

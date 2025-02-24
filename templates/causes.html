@@ -53,7 +53,7 @@
                                         <ul>
                                             <li><a href="{% url 'cause' cause.slug %}">Learn More</a></li>
                                             {% if not cause.raised == cause.goal %}
-                                            <li><a href="{% url 'initiate_payment' cause.slug %}">Donate Now</a></li>
+                                            <li><a href="{% url 'initiate_payment_cause' cause.slug %}">Donate Now</a></li>
                                             {% endif %}
                                         </ul>
                                     </div>

@@ -37,7 +37,7 @@
 			amount: "{{ amount_value }}",
 			ref: ref,
 			callback: function (response) {
-				window.location.href = "{% url 'verify_payment' payment.ref %}";
+				window.location.href = "{% url 'verify_paymen_causet' payment.ref %}";
 			},
 		};
 		if (Boolean(currency)) {

@@ -1,0 +1,261 @@
+{% load static %}
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+{% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        <ul class="text-center">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+<div class="wpo-login-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <form class="wpo-accountWrapper" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="wpo-accountForm form-style mt-4">
+                        <div class="fromTitle text-center mb-4">
+                            <h2>Profile</h2>
+                            <p>Create your NGO profile</p>
+                        </div>
+                        <div class="row">
+                            <label for="category">Category* (Select up to 4):</label>
+                            <select id="category" name="category" class="form-control" multiple>
+                                <option value=""></option>
+                                <option value="Human Rights & Social Justice">Human Rights & Social Justice</option>
+                                <option value="Education & Skill Development">Education & Skill Development</option>
+                                <option value="Health & Well-being">Health & Well-being</option>
+                                <option value="Poverty Alleviation & Economic Development">Poverty Alleviation & Economic Development</option>
+                                <option value="Environmental & Climate Action">Environmental & Climate Action</option>
+                                <option value="Agriculture & Food Security">Agriculture & Food Security</option>
+                                <option value="Arts, Culture & Heritage">Arts, Culture & Heritage</option>
+                                <option value="Technology & Innovation for Good">Technology & Innovation for Good</option>
+                                <option value="Disaster Response & Humanitarian Aid">Disaster Response & Humanitarian Aid</option>
+                            </select>
+                            <hr>
+                            <label for="subcategory">Subcategory* (Select up to 9):</label>
+                            <select id="subcategory" name="sub_category" class="form-control" multiple disabled>
+                                <option value="">Select subcategories</option>
+                            </select>
+                            
+                            <script>
+                                // Define subcategories for each category
+                                const subcategories = {
+                                    "Human Rights & Social Justice": [
+                                        "Human Rights Advocacy",
+                                        "Gender Equality & Women’s Empowerment",
+                                        "Child Protection & Welfare",
+                                        "Disability Rights & Inclusion",
+                                        "Refugee & Migrant Support"
+                                    ],
+                                    "Education & Skill Development": [
+                                        "Early Childhood Education",
+                                        "Primary & Secondary Education",
+                                        "Higher Education & Scholarships",
+                                        "Digital Literacy & STEM Education",
+                                        "Vocational Training & Skill Development",
+                                        "Special Education"
+                                    ],
+                                    "Health & Well-being": [
+                                        "Public Health Awareness",
+                                        "Maternal & Child Health",
+                                        "Mental Health & Psychological Support",
+                                        "Disease Prevention & Control (HIV/AIDS, Malaria, etc.)",
+                                        "Access to Clean Water & Sanitation",
+                                        "Nutrition & Food Security"
+                                    ],
+                                    "Poverty Alleviation & Economic Development": [
+                                        "Community Development & Empowerment",
+                                        "Job Creation & Entrepreneurship Support",
+                                        "Microfinance & Financial Inclusion",
+                                        "Social Welfare & Relief Programs",
+                                        "Affordable Housing & Homelessness Support"
+                                    ],
+                                    "Environmental & Climate Action": [
+                                        "Climate Change Advocacy",
+                                        "Renewable Energy & Sustainability",
+                                        "Wildlife & Biodiversity Conservation",
+                                        "Reforestation & Afforestation",
+                                        "Waste Management & Recycling"
+                                    ],
+                                    "Agriculture & Food Security": [
+                                        "Sustainable Farming & Agro-Tech",
+                                        "Rural Development & Farmer Support",
+                                        "Food Security & Hunger Relief",
+                                        "Fisheries & Aquaculture"
+                                    ],
+                                    "Arts, Culture & Heritage": [
+                                        "Cultural Preservation & Indigenous Rights",
+                                        "Creative Arts & Performing Arts",
+                                        "Music & Literature Development",
+                                        "Media & Journalism for Social Change"
+                                    ],
+                                    "Technology & Innovation for Good": [
+                                        "Tech for Social Impact",
+                                        "Digital Inclusion & Access",
+                                        "Cybersecurity & Online Safety Awareness",
+                                        "AI & Data for Social Good"
+                                    ]
+                                };
+                            
+                                // Get references to the dropdowns
+                                const categoryDropdown = document.getElementById("category");
+                                const subcategoryDropdown = document.getElementById("subcategory");
+                            
+                                // Add an event listener to the category dropdown
+                                categoryDropdown.addEventListener("change", function () {
+                                    // Get the selected categories (up to 4)
+                                    const selectedCategories = Array.from(categoryDropdown.selectedOptions).map(option => option.value);
+                            
+                                    // Clear the subcategory dropdown
+                                    subcategoryDropdown.innerHTML = '<option value="">Select subcategories</option>';
+                                    subcategoryDropdown.disabled = true;
+                            
+                                    // If categories are selected, populate the subcategory dropdown
+                                    if (selectedCategories.length > 0 && selectedCategories.length <= 4) {
+                                        subcategoryDropdown.disabled = false;
+                            
+                                        // Collect all subcategories for the selected categories
+                                        const allSubcategories = [];
+                                        selectedCategories.forEach(category => {
+                                            if (subcategories[category]) {
+                                                allSubcategories.push(...subcategories[category]);
+                                            }
+                                        });
+                            
+                                        // Add subcategories to the dropdown
+                                        allSubcategories.forEach(subcategory => {
+                                            const option = document.createElement("option");
+                                            option.value = subcategory;
+                                            option.textContent = subcategory;
+                                            subcategoryDropdown.appendChild(option);
+                                        });
+                                    } else {
+                                        alert("You can select up to 4 categories.");
+                                        categoryDropdown.selectedIndex = -1; // Reset selection
+                                    }
+                                });
+                            
+                                // Add an event listener to the subcategory dropdown to enforce a maximum of 9 selections
+                                subcategoryDropdown.addEventListener("change", function () {
+                                    const selectedSubcategories = Array.from(subcategoryDropdown.selectedOptions);
+                                    if (selectedSubcategories.length > 9) {
+                                        alert("You can select up to 9 subcategories.");
+                                        // Deselect the extra options
+                                        selectedSubcategories.slice(9).forEach(option => option.selected = false);
+                                    }
+                                });
+                            </script>
+                            <hr>
+                            <hr>
+                            <div class="col-12 mb-3">
+                                <label for="name">Organization Name*</label>
+                                {{form.organization_name}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="name">Organization Image*</label>
+                                {{form.organization_image}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="email">Organization Email*</label>
+                                {{form.email}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="phone number">Organization Phone Number*</label>
+                                {{form.phone_number}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="state">State Located*</label>
+                                {{form.state}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="city">City Located*</label>
+                                {{form.city}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="description">Organization description*</label>
+                                {{form.description}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="scuml">SCUML*</label>
+                                {{form.scuml}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="CAC Certificate">CAC Certificate*</label>
+                                {{form.cac_certificate}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="cac number">CAC Number*</label>
+                                {{form.cac_number}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="Bank">Bank*</label>
+                                {{form.bank}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="Account number">Account Number*</label>
+                                {{form.bank_account_number}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="Account name">Account Name*</label>
+                                {{form.bank_account_name}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="email">Twitter</label>
+                                {{form.twitter}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="email">Instagram</label>
+                                {{form.instagram}}
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="email">Facebook</label>
+                                {{form.facebook}}
+                            </div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Disclaimer
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Information</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        A <b>10% administrative fee</b> will be retained by the <b>Salsabil Charity Foundation</b> from each donation to support operational costs, program management, and the continued delivery of our charitable initiatives. The remaining <b>90%</b> of your contribution will be allocated directly to the designated cause or project, ensuring maximum impact. We are committed to transparency and accountability in the use of all funds. Thank you for your generous support and for partnering with us to make a meaningful difference.
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div><hr>
+                            <div class="col-12 mb-3 text-center">
+                                <button type="submit" class="wpo-accountBtn btn btn-primary btn-block">Create Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

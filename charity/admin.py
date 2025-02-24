@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact, Event, Blog, Comment, Cause, Comment_Cause, Member, Payment
+from .models import Contact, Event, Blog, Comment, Cause, Comment_Cause, Member, Payment, Profile, Project, Volunteer, Collaboration, Personnel
 # Register your models here.
 
 @admin.register(Contact)
@@ -42,8 +42,35 @@ class MemberAdmin(admin.ModelAdmin):
 
 @admin.register(Payment)
 class  PaymentAdmin(admin.ModelAdmin):
-    list_display  = ["name", "ref", 'amount', "verified", "date_created"]
+    list_display  = ["name", "ref", 'amount', "verified", "date_created", "sub_account_ID"]
     list_filter = ["date_created", "verified"]
-    search_fields = ["name", "ref", "cause__title" ]
+    search_fields = ["name", "ref", "cause__title", "sub_account_ID" ]
 
 
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display=['user__username', 'organization_name', 'category', 'sub_category', 'email', 'phone_number']
+    search_fields = ['user__username', 'organization_name', 'email', 'category', 'sub_category', 'phone_number']
+    list_filter=['category']
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display=['organization__organization_name', 'title', 'budget', 'amount_raised', 'location', 'date']    
+    list_filter=['date']
+    search_fields=['organization__organization_name', 'title', 'location',]
+
+
+@admin.register(Volunteer)
+class VolunteerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'phone_number', 'address']
+    search_fields = ['name', 'email', 'phone_number']
+
+@admin.register(Collaboration)
+class CollaborationAdmin(admin.ModelAdmin):
+    list_display=['project__title', 'title', 'description']
+    search_fields= ['project__title', 'title', 'profile__organization_name']
+
+@admin.register(Personnel)
+class PersonnelAdmin(admin.ModelAdmin):
+    list_display = ['name', 'role', 'email', 'phone_number', 'address']
+    search_fields = ['name', 'email', 'phone_number']

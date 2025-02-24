@@ -1,0 +1,5 @@
+# templates/search/indexes/app_name/project_text.txt
+
+{{ object.location }}
+{{ object.organization }}
+{{object.description}}

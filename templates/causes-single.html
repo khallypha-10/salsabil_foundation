@@ -148,7 +148,7 @@
                                             
                                         {% if not cause.raised == cause.goal  %}
                                             <div class="submit-area">
-                                                <button  class="theme-btn submit-btn"><a href="{% url 'initiate_payment' cause.slug %}">Donate Now</a></button>
+                                                <button  class="theme-btn submit-btn"><a href="{% url 'initiate_payment_cause' cause.slug %}">Donate Now</a></button>
                                             </div>
                                         {% endif %}
                                     </div>

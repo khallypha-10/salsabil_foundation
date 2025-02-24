@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>{{organization.organization_name|title}}</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>{{organization.organization_name|title}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+        <!-- start wpo-blog-single-section -->
+        <section class="wpo-blog-single-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                        <div class="wpo-wpo-blog-content ">
+                            <div class="post format-gallery">
+                                <img src="{{organization.organization_image.url}}" class="img-fluid" alt="...">
+                                <ul class="entry-meta"><hr>
+                                    <li><a href="#"><i class="fa-solid fa-list"></i> {{organization.category}}</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-list"></i>{{organization.sub_category}}</a></li>
+                                    <li>
+                                        <i class="fa-solid fa-location-dot"></i>{{organization.state}}
+                                    </li>  
+                                </ul>
+                                
+                                <h2>{{organization.organization_name|title}}</h2>
+                                {{organization.description}}
+                            </div>
+                            <div class="tag-share clearfix">
+                                <div class="tag">
+                                    <ul>
+                                        <li><a href="#">{{organization.category}}</a></li>
+                                        
+                                    </ul>
+                                </div>
+                                <div class="share">
+                                    <ul>
+                                        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"><i class="ti-facebook"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog.title }}" target="_blank"><i class="ti-twitter-alt"></i></a></li>
+                                        <li><a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}" target="_blank"><i class="ti-instagram"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div> <!-- end tag-share -->
+                            
+                        </div>
+                       
+                         <div class="comment-respond">
+                            <!-- Reply Form (hidden) -->
+                    <div class="reply-form" style="display:none;">
+                        
+                        
+                    </div><hr>
+                            
+                        </div>
+                    </div>
+                    
+                   
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            
+                            <div class="widget recent-post-widget">
+                                <h3>Information</h3>
+                                <div class="posts">
+                                    <div class="post">
+                                        
+                                        <div class="details">
+                                            <h6><i class="fa-solid fa-envelope"></i>{{organization.email}}</h6>
+                                            <h4><i class="fa-solid fa-phone"></i>{{organization.phone_number}}</h4>
+                                            <h4><i class="fa-brands fa-square-instagram"></i> {{organization.instagram}}</h4>
+                                            <h4><i class="fa-brands fa-twitter"></i> {{organization.twitter}}</h4>
+                                            <h4><i class="fa-brands fa-facebook"></i> {{organization.facebook}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end container -->
+        </section>
+        <!-- end wpo-blog-single-section -->
+        <div class="wpo-ne-footer">
+          
+{% endblock content %}

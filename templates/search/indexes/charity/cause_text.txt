@@ -1,0 +1,4 @@
+# templates/search/indexes/app_name/cause_text.txt
+
+{{ object.title }}
+{{object.description}}

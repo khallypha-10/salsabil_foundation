@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+    <!-- .wpo-breadcumb-area start -->
+    <div class="wpo-breadcumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>Search</h2>
+                        <ul>
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li><span>Search</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .wpo-breadcumb-area end -->
+
+    <!-- wpo-event-area start -->
+    <div class="wpo-event-area-2 section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="wpo-section-title">
+                        <span>search</span>
+                        <h2>You searched for: '{{query}}'</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for result in results %}
+                <div class="col-md-4 col-sm-6 col-12 custom-grid">
+                    <div class="wpo-event-item">
+                        <div class="wpo-event-text">
+                            <a href="{{result.object.get_absolute_url}}"><h2>{{ result.object.title|truncatechars:20|title }}</h2></a>
+                            <ul>
+                                <li><i class="fa-solid fa-building"></i>{{ result.object.title }}</li>
+                                <li><i class="fi flaticon-pin"></i>{{ result.object.location|capfirst }}</li>
+                            </ul>
+                            <hr>
+                            <!-- Ensure the description field is rendered -->
+                            <p>{{ result.object.description|truncatechars:100|capfirst }}</p>
+                            <a href="#">Learn More...</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="pagination-wrapper pagination-wrapper-left">
+                <ul class="pg-pagination">
+                    {% if results.has_previous %}
+                    <li>
+                        <a href="?page={{results.previous_page_number}}" aria-label="Previous">
+                            <i class="fi ti-angle-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+    
+                    {% for page in results.paginator.page_range %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                    {% endfor %}
+    
+                    {% if results.has_next %}
+                    <li>
+                        <a href="?page={{results.next_page_number}}" aria-label="Next">
+                            <i class="fi ti-angle-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- wpo-event-area end -->
+    
+{% endblock content %}

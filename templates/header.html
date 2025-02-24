@@ -31,21 +31,66 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="{% url 'home' %}">Home</a>
+                       
                     </li>
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    <li>
-                        <a href="{% url 'causes' %}">Causes</a>
+                    <li class="menu-item-has-children">
+                        <a href="#">About</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="{% url 'events' %}">Events</a>
+                    <li class="menu-item-has-children">
+                        <a href="#">Causes</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'causes' %}">Causes</a></li>
+                            <li><a href="{% url 'events' %}">Events</a></li>
+                        </ul>
                     </li>
-                   
+                    <li class="menu-item-has-children">
+                        <a href="#">Organizations</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'organizations' %}">Organizations</a></li>
+                            <li><a href="{% url 'projects' %}">Projects</a></li>
+                            <li><a href="{% url 'collaboration-requests' %}">Collboration Requests</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="{% url 'blogs' %}">Blogs</a>
                         
                     </li>
-                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' user %}">Profile</a></li>
+                    <li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                    </form>
+                    </li>
+                    {% else %}
+                    <li class="menu-item-has-children">
+                        <a href="#">Login</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Sign Up</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
                 </ul>
+                <div class="cart-search-contact mb-5">
+                    <div class="header-search-form-wrapper">
+                        <button class="search-toggle-btn"><i class="fi flaticon-magnifying-glass"></i></button>
+                        <div class="header-search-form">
+                            <form method="post" action="{% url 'search' %}">
+                                {% csrf_token %}
+                                <div>
+                                    <input type="text" name="search" class="form-control" placeholder="Search here...">
+                                    <button type="submit"><i class="fi flaticon-magnifying-glass"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div><!-- end of nav-collapse -->
         </div><!-- end of container -->
     </nav>

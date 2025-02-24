@@ -19,7 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('charity.urls'))
+    path('', include('charity.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
 admin.site.site_header = "Salsabil"
 admin.site.site_title = "Salsabil foundation"

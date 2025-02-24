@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+{% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                    <p class="text-center text-info-emphasis fs-2"> {{ message }}</p>
+                </div>
+    {% endfor %}
+<!-- .wpo-breadcumb-area start -->
+<div class="wpo-breadcumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="wpo-breadcumb-wrap">
+                    <h2>My Profile</h2>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><span>Profile</span></li>
+                        <li><span>My Profile</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .wpo-breadcumb-area end -->
+
+<!-- My Profile Section -->
+<div class="wpo-my-profile-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Sidebar Navigation -->
+                <div class="wpo-profile-sidebar">
+                    <div class="widget">
+                        <h3>Vendor Dashboard</h3>
+                        <ul>
+                            <li><a href="#myProfile" data-toggle="tab">My Profile</a></li>
+                            <li><a href="{% url 'create-project' user %}">Create Project</a></li>
+                            <li><a href="{% url 'my-projects' user %}">My Projects</a></li>
+                            <li><a href="{% url 'collaboration-requests-ngo' user %}">Collaboration requests</a></li>
+                            <li><a href="{% url 'edit-profile' user %}">Edit Profile</a></li>
+                            <li><a href="#deleteProfile" data-toggle="tab">Delete Profile</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    
+                    <!-- My Profile Tab -->
+                    <div id="myProfile" class="tab-pane active">
+                        <h3>Profile Information</h3>
+                        <p><strong>Name:</strong> {{ profile.organization_name }}</p>
+                        <p><strong>Category:</strong> {{ profile.category }}</p>
+                        <p><strong>Sub Category:</strong> {{ profile.sub_category }}</p>
+                        <p><strong>Email:</strong> {{ profile.email }}</p>
+                        <p><strong>Phone:</strong> {{ profile.phone_number }}</p>
+                        <p><strong>state:</strong> {{ profile.state }}</p>
+                        <p><strong>city:</strong> {{ profile.city }}</p>
+                        <p><strong>Bank:</strong> {{ profile.bank }}</p>
+                        <p><strong>Account Name:</strong> {{ profile.bank_account_name }}</p>
+                        <p><strong>Account Number:</strong> {{ profile.bank_account_number }}</p>
+                        <p><strong>twitter:</strong> {{ profile.twitter }}</p>
+                        <p><strong>instagram:</strong> {{ profile.instagram }}</p>
+                        <p><strong>facebook:</strong> {{ profile.facebook }}</p>
+                        <p><strong>description:</strong> {{ profile.description }}</p>
+                    </div>
+                    
+               
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- My Profile Section End -->
+
+
+{% endblock content %}

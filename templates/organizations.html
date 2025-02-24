@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+
+        <!-- .wpo-breadcumb-area start -->
+        <div class="wpo-breadcumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="wpo-breadcumb-wrap">
+                            <h2>Our Organizations</h2>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><span>Organizations</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .wpo-breadcumb-area end -->
+
+        <!-- start wpo-blog-pg-section -->
+        <section class="wpo-blog-pg-section section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-8">
+                        <div class="wpo-wpo-blog-content">
+                            
+                            {% for profile in organizations %}
+                            <div class="post format-gallery">
+                                <img src="{{profile.organization_image.url}}" class="img-fluid" alt="...">
+                                <ul class="entry-meta"><br>
+                                    <li><a href="{% url 'organization-detail' user %}"><i class="fa-solid fa-building"></i> {{profile.organization_name}}</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-list"></i> {{profile.category|truncatewords:10}}</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-list"></i> {{profile.sub_category|truncatewords:10}}</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-location-dot"></i> {{profile.state}}</a></li>
+                                    
+                                </ul>
+                                <h3><a href="#">{{profile.organization|title}}</a></h3>
+                                {{profile.description|truncatewords:20}}
+                                <a href="{% url 'organization-detail' user %}" class="read-more">Read More...</a>
+                            </div>
+                            {% endfor %}
+                            <div class="pagination-wrapper pagination-wrapper-left">
+                                <ul class="pg-pagination">
+                                    {% if organizations.has_previous %}
+                                    <li>
+                                        <a href="?page={{ organizations.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_state %}&state={{ selected_state }}{% endif %}" aria-label="Previous">
+                                            <i class="fi ti-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                            
+                                    {% for page in organizations.paginator.page_range %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_state %}&state={{ selected_state }}{% endif %}">{{ page }}</a>
+                                    </li>
+                                    {% endfor %}
+                            
+                                    {% if organizations.has_next %}
+                                    <li>
+                                        <a href="?page={{ organizations.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_state %}&state={{ selected_state }}{% endif %}" aria-label="Next">
+                                            <i class="fi ti-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col col-md-4">
+                        <div class="wpo-blog-sidebar">
+                            
+                            <div class="widget category-widget">
+                                <h3>Categories</h3>
+                                <ul>
+                                    <li><a href="{% url 'organizations' %}">Clear Filters</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Human Rights & Social Justice{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Human Rights & Social Justice' %}active{% endif %}">Human Rights & Social Justice</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Education & Skill Development{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Education & Skill Development' %}active{% endif %}">Education & Skill Development</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Health & Well-being{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Health & Well-being' %}active{% endif %}">Health & Well-being</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Poverty Alleviation & Economic Development{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Poverty Alleviation & Economic Development' %}active{% endif %}">Poverty Alleviation & Economic Development</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Environmental & Climate Action{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Environmental & Climate Action' %}active{% endif %}">Environmental & Climate Action</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Agriculture & Food Security{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Agriculture & Food Security' %}active{% endif %}">Agriculture & Food Security</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Arts, Culture & Heritage{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Arts, Culture & Heritage' %}active{% endif %}">Arts, Culture & Heritage</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Technology & Innovation for Good{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Technology & Innovation for Good' %}active{% endif %}">Technology & Innovation for Good</a></li>
+                                    <li><a href="{% url 'organizations' %}?category=Disaster Response & Humanitarian Aid{% if selected_state %}&state={{ selected_state }}{% endif %}" class="{% if selected_category == 'Disaster Response & Humanitarian Aid' %}active{% endif %}">Disaster Response & Humanitarian Aid</a></li>
+                                </ul><br>
+                                <h3>Location</h3>
+                                <!-- State Filter Dropdown -->
+                                <select id="state" name="state" onchange="location = this.value;" class="form-control">
+                                    <option value="{% url 'organizations' %}{% if selected_category %}?category={{ selected_category }}{% endif %}">State</option>
+                                    <option value="{% url 'organizations' %}?state=Abia{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Abia' %}selected{% endif %}>Abia</option>
+                                    <option value="{% url 'organizations' %}?state=Adamawa{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Adamawa' %}selected{% endif %}>Adamawa</option>
+                                    <option value="{% url 'organizations' %}?state=Akwa Ibom{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Akwa Ibom' %}selected{% endif %}>Akwa Ibom</option>
+                                    <option value="{% url 'organizations' %}?state=Anambra{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Anambra' %}selected{% endif %}>Anambra</option>
+                                    <option value="{% url 'organizations' %}?state=Bauchi{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Bauchi' %}selected{% endif %}>Bauchi</option>
+                                    <option value="{% url 'organizations' %}?state=Bayelsa{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Bayelsa' %}selected{% endif %}>Bayelsa</option>
+                                    <option value="{% url 'organizations' %}?state=Benue{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Benue' %}selected{% endif %}>Benue</option>
+                                    <option value="{% url 'organizations' %}?state=Borno{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Borno' %}selected{% endif %}>Borno</option>
+                                    <option value="{% url 'organizations' %}?state=Cross River{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Cross River' %}selected{% endif %}>Cross River</option>
+                                    <option value="{% url 'organizations' %}?state=Delta{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Delta' %}selected{% endif %}>Delta</option>
+                                    <option value="{% url 'organizations' %}?state=Ebonyi{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Ebonyi' %}selected{% endif %}>Ebonyi</option>
+                                    <option value="{% url 'organizations' %}?state=Edo{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Edo' %}selected{% endif %}>Edo</option>
+                                    <option value="{% url 'organizations' %}?state=Ekiti{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Ekiti' %}selected{% endif %}>Ekiti</option>
+                                    <option value="{% url 'organizations' %}?state=Enugu{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Enugu' %}selected{% endif %}>Enugu</option>
+                                    <option value="{% url 'organizations' %}?state=Federal Capital Territory{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Fedral Capital Territory' %}selected{% endif %}>Fedral Capital Territory</option>
+                                    <option value="{% url 'organizations' %}?state=Gombe{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Gombe' %}selected{% endif %}>Gombe</option>
+                                    <option value="{% url 'organizations' %}?state=Imo{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Imo' %}selected{% endif %}>Imo</option>
+                                    <option value="{% url 'organizations' %}?state=Jigawa{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Jigawa' %}selected{% endif %}>Jigawa</option>
+                                    <option value="{% url 'organizations' %}?state=Kaduna{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Kaduna' %}selected{% endif %}>Kaduna</option>
+                                    <option value="{% url 'organizations' %}?state=Kano{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Kano' %}selected{% endif %}>Kano</option>
+                                    <option value="{% url 'organizations' %}?state=Katsina{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Katsina' %}selected{% endif %}>Katsina</option>
+                                    <option value="{% url 'organizations' %}?state=Kebbi{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Kebbi' %}selected{% endif %}>Kebbi</option>
+                                    <option value="{% url 'organizations' %}?state=Kogi{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Kogi' %}selected{% endif %}>Kogi</option>
+                                    <option value="{% url 'organizations' %}?state=Kwara{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Kwara' %}selected{% endif %}>Kwara</option>
+                                    <option value="{% url 'organizations' %}?state=Lagos{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Lagos' %}selected{% endif %}>Lagos</option>
+                                    <option value="{% url 'organizations' %}?state=Nasarawa{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Nasarawa' %}selected{% endif %}>Nasarawa</option>
+                                    <option value="{% url 'organizations' %}?state=Niger{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Niger' %}selected{% endif %}>Niger</option>
+                                    <option value="{% url 'organizations' %}?state=Ogun{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Ogun' %}selected{% endif %}>Ogun</option>
+                                    <option value="{% url 'organizations' %}?state=Ondo{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Ondo' %}selected{% endif %}>Ondo</option>
+                                    <option value="{% url 'organizations' %}?state=Osun{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Osun' %}selected{% endif %}>Osun</option>
+                                    <option value="{% url 'organizations' %}?state=Oyo{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Oyo' %}selected{% endif %}>Oyo</option>
+                                    <option value="{% url 'organizations' %}?state=Plateau{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Plateau' %}selected{% endif %}>Plateau</option>
+                                    <option value="{% url 'organizations' %}?state=Rivers{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Rivers' %}selected{% endif %}>Rivers</option>
+                                    <option value="{% url 'organizations' %}?state=Sokoto{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Sokoto' %}selected{% endif %}>Sokoto</option>
+                                    <option value="{% url 'organizations' %}?state=Taraba{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Taraba' %}selected{% endif %}>Taraba</option>
+                                    <option value="{% url 'organizations' %}?state=Yobe{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Yobe' %}selected{% endif %}>Yobe</option>
+                                    <option value="{% url 'organizations' %}?state=Zamfara{% if selected_category %}&category={{ selected_category }}{% endif %}" {% if selected_state == 'Zamfara' %}selected{% endif %}>Zamfara</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                   
+                </div>
+            </div> <!-- end container -->
+        </section>
+        <!-- end wpo-blog-pg-section -->
+
+{% endblock content %}

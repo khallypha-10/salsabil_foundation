@@ -33,7 +33,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
     'charity',
-    'storages'
+    'storages',
+    'phonenumber_field',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -139,6 +141,9 @@ STATIC_ROOT = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT= 'media/'
 
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -169,3 +174,23 @@ STORAGES = {
         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
 }
+
+
+
+# Haystack configuration
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
+        'URL': 'https://localhost:9200/',  # Elasticsearch URL
+        'INDEX_NAME': 'charity_index',  # Index name
+        'KWARGS': {
+            'http_auth': ('elastic', 'Hc_qhdZL_oYqTQ=AoDWc'),  # Username and password
+            'verify_certs': True,  # Enable certificate verification
+            'ca_certs': 'c:/Users/hp/Desktop/elasticsearch-8.17.2/config/certs/http_ca.crt',  # Path to the CA certificate
+        },
+    },
+}
+
+# Automatically update the search index when objects are saved or deleted
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

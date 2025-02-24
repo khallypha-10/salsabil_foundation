@@ -1,0 +1,5 @@
+# templates/search/indexes/app_name/event_text.txt
+
+{{ object.location }}
+{{ object.name }}
+{{object.description}}
