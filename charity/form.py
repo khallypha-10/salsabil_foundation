@@ -86,7 +86,7 @@ class CreateProjectForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'datetimepicker', 'placeholder': 'Select Date & Time'})
     )
     class Meta:
-        exclude = ['organization']
+        exclude = ['organization', 'amount_raised']
         model = Project
 
     def __init__(self, *args, **kwargs):
