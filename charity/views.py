@@ -56,8 +56,8 @@ def my_profile(request, user):
 def create_profile(request):
     form = CreateProfileForm()
     if request.method == 'POST':
-        category = request.POST.get('category')
-        sub_category = request.POST.get('sub_category')
+        category = request.POST.getlist('category')
+        sub_category = request.POST.getlist('sub_category')
         form = CreateProfileForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
