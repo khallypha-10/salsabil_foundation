@@ -61,8 +61,8 @@ def create_profile(request):
         form = CreateProfileForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
-            obj.category = category
-            obj.sub_category = sub_category
+            obj.category =','.join(category)
+            obj.sub_category =','.join(sub_category)
             obj.save()
             messages.success(request, 'profile created successfully')
             return redirect('home')
