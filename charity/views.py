@@ -480,9 +480,11 @@ def verify_payment_project(request, ref):
 
 def search(request):
     query = None
-    results = None
+    results = []
     if request.method == 'POST':
         query = request.POST.get('search')
-        results = search_models(query)
-        
+        if query and query.strip():  # Check if query is not empty or just whitespace
+            results = search_models(query)
+        else:
+            print("Empty query submitted.")  # Debug: Handle empty query
     return render(request, 'search.html', {'results': results, 'query': query})
