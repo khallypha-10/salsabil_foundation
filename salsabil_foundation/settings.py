@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'charity',
     'storages',
     'phonenumber_field',
+    'django.contrib.postgres'
 ]
 
 MIDDLEWARE = [
