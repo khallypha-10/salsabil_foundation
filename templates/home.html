@@ -61,29 +61,13 @@
                         <a href="{% url 'blogs' %}">Blogs</a>
                         
                     </li>
-                    <li>
-                        <div class="cart-search-contact mb-5">
-                            <div class="header-search-form-wrapper">
-                                <button class="search-toggle-btn"><i class="fi flaticon-magnifying-glass"></i></button>
-                                <div class="header-search-form">
-                                    <form method="post" action="{% url 'search' %}">
-                                        {% csrf_token %}
-                                        <div>
-                                            <input type="text" name="search" class="form-control" placeholder="Search here...">
-                                            <button type="submit"><i class="fi flaticon-magnifying-glass"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'profile' user %}">Profile</a></li>
-                    </li>
-                        <form method="post" action="{% url 'logout' %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                        </form>
+                    <li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                    </form>
                     </li>
                     {% else %}
                     <li class="menu-item-has-children">
@@ -94,7 +78,20 @@
                         </ul>
                     </li>
                     {% endif %}
-                    
+                    <div class="cart-search-contact mb-5">
+                    <div class="header-search-form-wrapper">
+                        <button class="search-toggle-btn"><i class="fi flaticon-magnifying-glass"></i></button>
+                        <div class="header-search-form">
+                            <form method="post" action="{% url 'search' %}">
+                                {% csrf_token %}
+                                <div>
+                                    <input type="text" name="search" class="form-control" placeholder="Search here...">
+                                    <button type="submit"><i class="fi flaticon-magnifying-glass"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 </ul>
                 
             </div><!-- end of nav-collapse -->
