@@ -16,6 +16,21 @@
                         <ul>
                             <li><i class="fi flaticon-call"></i>+2349059234041</li>
                             <li><i class="fi flaticon-envelope"></i> Salsabilcharityfoundation@gmail.com</li>
+                            <li>
+                                <div class="cart-search-contact mb-5">
+                                    <div class="header-search-form-wrapper">
+                                        <button class="search-toggle-btn"><i class="fi flaticon-magnifying-glass"></i></button>
+                                        <div class="header-search-form">
+                                            <form method="post" action="{% url 'search' %}">
+                                                {% csrf_token %}
+                                                <div>
+                                                    <input type="text" name="search" class="form-control" placeholder="Search here...">
+                                                    <button type="submit"><i class="fi flaticon-magnifying-glass"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -84,19 +99,7 @@
                         </ul>
                     </li>
                     {% endif %}
-                    <div class="cart-search-contact mb-5">
-                    <div class="header-search-form-wrapper">
-                        <button class="search-toggle-btn"><i class="fi flaticon-magnifying-glass"></i></button>
-                        <div class="header-search-form">
-                            <form method="post" action="{% url 'search' %}">
-                                {% csrf_token %}
-                                <div>
-                                    <input type="text" name="search" class="form-control" placeholder="Search here...">
-                                    <button type="submit"><i class="fi flaticon-magnifying-glass"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    
                 </div>
                 </ul>
                 
