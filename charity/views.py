@@ -480,6 +480,7 @@ def verify_payment_project(request, ref):
 
 def search(request):
     query = None
+    results = None
     if request.method == 'POST':
         query = request.POST.get('search')
         results = search_models(query)
