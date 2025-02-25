@@ -39,7 +39,7 @@
                             <a href="{% url 'event' event.slug %}"><img src="{{event.image_1.url}}" alt="">
                         </div>
                         <div class="wpo-event-text">
-                            <a href="{% url 'event' event.slug %}"><h2>{{event.name|truncatechars:20|title}}</h2>
+                            <a href="{% url 'event' event.slug %}"><h2>{{event.title|truncatechars:20|title}}</h2>
                             <ul>
                                 <li><i class="fa fa-clock-o" aria-hidden="true"></i>{{event.time}}</li>
                                 <li><i class="fi flaticon-pin"></i>{{event.location|capfirst}}</li>

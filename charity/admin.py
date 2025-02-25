@@ -9,8 +9,8 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ['name', 'location', 'schedule', 'description', 'time', 'date']
-    search_fields = ['name', 'location']
+    list_display = ['title', 'location', 'schedule', 'description', 'time', 'date']
+    search_fields = ['title', 'location']
     list_filter = ['time', 'date']
 
 @admin.register(Blog)

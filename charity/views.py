@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
+from .utils import search_models  
 # Create your views here.
 
 def home(request):
@@ -476,15 +477,13 @@ def verify_payment_project(request, ref):
     return render(request, "success.html", {"payment": payment})
 
 
-from haystack.query import SearchQuerySet
 
 def search(request):
     query = None
-    results = None
     if request.method == 'POST':
         query = request.POST.get('search')
-        results = SearchQuerySet().filter(content=query)
-    else:
-        results = SearchQuerySet().none()
-
-    return render(request, 'search.html', {'results': results, 'query': query})
+        if query:
+            results = search_models(query)
+        else:
+            results = []
+    return render(request, 'search.html', {'results': results})

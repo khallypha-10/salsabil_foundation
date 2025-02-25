@@ -13,7 +13,7 @@
                             <ul>
                                 <li><a href="{% url 'home' %}">Home</a></li>
                                 <li><span>Event</span></li>
-                                <li><span>{{event.name|title}}</span></li>
+                                <li><span>{{event.title|title}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="wpo-event-details-text">
-                                <h2>{{event.name|title}}</h2>
+                                <h2>{{event.title|title}}</h2>
                                  {{event.description|capfirst}}
                             </div>
                             <div class="wpo-event-details-wrap">

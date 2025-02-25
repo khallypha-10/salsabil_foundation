@@ -17,7 +17,7 @@ class Contact(models.Model):
 
 class Event(models.Model):
     slug = models.SlugField(max_length=150, blank=True, null=True)
-    name = models.CharField(max_length=70)
+    title = models.CharField(max_length=70)
     location = models.CharField(max_length=70)
     description = models.TextField()
     schedule = models.TextField()

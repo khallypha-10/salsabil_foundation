@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'charity',
     'storages',
     'phonenumber_field',
-    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -90,14 +89,12 @@ WSGI_APPLICATION = 'salsabil_foundation.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+# Database configuration
 DATABASES = {
     'default': {
-        'ENGINE': env('ENGINE'),
-        'NAME': env('NAME'),
-        'USER': env('USER'),
-        'PASSWORD': env('PASSWORD'),
-        'HOST': env('HOST'),
-        'PORT': env('PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # This will work
     }
 }
 
@@ -151,46 +148,5 @@ DEFAULT_AUTO_FIELD = env('DEFAULT_AUTO_FIELD')
 PAYSTACK_SECRET_KEY = env('PAYSTACK_SECRET_KEY')
 PAYSTACK_PUBLIC_KEY = env('PAYSTACK_PUBLIC_KEY')
 
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME =env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_SIGNATURE_NAME = env('AWS_S3_SIGNATURE_NAME')
-AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL =  None
-AWS_S3_VERITY = True
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-EMAIL_BACKEND = env('EMAIL_BACKEND')
-AWS_SES_REGION_NAME = env('AWS_SES_REGION_NAME') 
-AWS_SES_REGION_ENDPOINT = env('AWS_SES_REGION_ENDPOINT') 
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
-
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-    },
-}
 
 
-
-# Haystack configuration
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
-        'URL': 'https://localhost:9200/',  # Elasticsearch URL
-        'INDEX_NAME': 'charity_index',  # Index name
-        'KWARGS': {
-            'http_auth': ('elastic', 'Hc_qhdZL_oYqTQ=AoDWc'),  # Username and password
-            'verify_certs': True,  # Enable certificate verification
-            'ca_certs': 'c:/Users/hp/Desktop/elasticsearch-8.17.2/config/certs/http_ca.crt',  # Path to the CA certificate
-        },
-    },
-}
-
-# Automatically update the search index when objects are saved or deleted
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
