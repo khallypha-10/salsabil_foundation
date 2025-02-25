@@ -482,8 +482,6 @@ def search(request):
     query = None
     if request.method == 'POST':
         query = request.POST.get('search')
-        if query:
-            results = search_models(query)
-        else:
-            results = []
-    return render(request, 'search.html', {'results': results})
+        results = search_models(query)
+        
+    return render(request, 'search.html', {'results': results, 'query': query})
